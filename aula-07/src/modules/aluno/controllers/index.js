@@ -44,10 +44,10 @@ class AlunoController {
         }
     }
 
-    static async listarPorID(requisicao, resposta) {
+    static async listarPorMatricula(requisicao, resposta) {
         try {
             const matricula = requisicao.params.id;
-            const aluno = await AlunoModel.listarPorID(matricula);
+            const aluno = await AlunoModel.listarPorMatricula(matricula);
             if (!aluno) {
                 return resposta.status(400).json({ mensagem: "Aluno não encontrado." });
             }
@@ -57,10 +57,10 @@ class AlunoController {
         }
     }
 
-    static async excluirPorID(requisicao, resposta) {
+    static async excluirPorMatricula(requisicao, resposta) {
         try {
             const matricula = requisicao.params.id;
-            const alunoExcluido = await AlunoModel.excluirPorID(matricula);
+            const alunoExcluido = await AlunoModel.excluirPorMatricula(matricula);
             if (!alunoExcluido) {
                 return resposta.status(400).json({ mensagem: "Aluno não encontrado." });
             }

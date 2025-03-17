@@ -43,10 +43,10 @@ class professorController {
         }
     }
 
-    static async listarPorID(requisicao, resposta) {
+    static async listarPorMatricula(requisicao, resposta) {
         try {
             const matricula = requisicao.params.id;
-            const professor = await professorModel.listarPorID(matricula);
+            const professor = await professorModel.listarPorMatricula(matricula);
             if (!professor.length) {
                 return resposta.status(400).json({ mensagem: "Professor não encontrado." });
             }
@@ -56,10 +56,10 @@ class professorController {
         }
     }
 
-    static async excluirPorID(requisicao, resposta) {
+    static async excluirPorMatricula(requisicao, resposta) {
         try {
             const matricula = requisicao.params.id;
-            const professorExcluido = await professorModel.excluirPorID(matricula);
+            const professorExcluido = await professorModel.excluirPorMatricula(matricula);
             if (!professorExcluido.length) {
                 return resposta.status(400).json({ mensagem: "Professor não encontrado." });
             }

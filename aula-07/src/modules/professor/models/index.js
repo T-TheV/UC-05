@@ -21,14 +21,14 @@ class professorModel {
         return professores.rows;
     }
 
-    static async listarPorID(matricula) {
+    static async listarPorMatricula(matricula) {
         const dados = [matricula];
         const consulta = `SELECT * FROM professor WHERE matricula = $1`;
         const professor = await pool.query(consulta, dados);
         return professor.rows;
     }
 
-    static async excluirPorID(matricula) {
+    static async excluirPorMatricula(matricula) {
         const dados = [matricula];
         const consulta = `DELETE FROM professor WHERE matricula = $1 RETURNING *`;
         const professorExcluido = await pool.query(consulta, dados);
