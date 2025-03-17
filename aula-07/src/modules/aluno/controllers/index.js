@@ -19,7 +19,7 @@ class AlunoController {
             const matricula = requisicao.params.id;
             const { nome, email, senha } = requisicao.body;
             
-            if (!nome && !email && !senha) {
+            if (!nome || !email || !senha) {
                 return resposta.status(400).json({ mensagem: "Pelo menos um campo deve ser atualizado." });
             }
             const alunoAtualizado = await AlunoModel.editar(matricula, { nome, email, senha });
