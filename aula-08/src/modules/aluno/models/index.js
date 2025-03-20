@@ -31,10 +31,9 @@ class AlunoModel{
     }
 
     static async excluirPorMatricula(matricula){
-        const dados = [matricula]
-        const consulta = `DELETE FROM aluno WHERE matricula = $1`
-        await pool.query(consulta, dados)
-   
+        const dados = [matricula];
+        const consulta = `DELETE FROM aluno WHERE matricula = $1`;
+        await pool.query(consulta, dados);
     }
 
     static async excluirTodos(){
