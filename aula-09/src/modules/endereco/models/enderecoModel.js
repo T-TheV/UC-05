@@ -50,7 +50,7 @@ class enderecoModel {
         return resultado.rows;
     }
 
-    static async editarEndereco(matricula, cep, logradouro, numero, complemento, bairro, localidade, uf, ponto_referencia) {
+    static async editarEndereco(matricula, cep, numero, ponto_referencia) {
         const resposta = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
         const { logradouro, complemento, bairro, localidade, uf } = resposta.data;
 
