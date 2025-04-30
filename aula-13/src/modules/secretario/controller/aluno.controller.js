@@ -1,7 +1,6 @@
-const SecretarioModel = require("../../secretario/model/secretario.model")
 const AlunoModel = require("../model/aluno.model")
 
-class SecretarioModelController {
+class alunoController {
     static async criarAluno(req, res) {
         try {
             const { matricula, nome, email, senha, turma } = req.body;
@@ -25,7 +24,31 @@ class SecretarioModelController {
                 return res.status(404).json({ msg: 'Nenhum aluno encontrado no banco de dados!' });
             }
 
-            res.status(200).json(alunos);
+            res.status(200).json(alunos.map(aluno => ({
+                matricula: aluno.matricula,
+                nome: aluno.nome,
+                turma: aluno.turma
+            })));
+        } catch (error) {
+            res.status(500).json({ msg: 'Erro interno do servidor, tente novamente mais tarde!' });
+        }
+    }
+
+    static async listarAlunoPorMatricula(req, res) {
+        try {
+            const { matricula } = req.params;
+
+            const aluno = await AlunoModel.findByPk(matricula);
+
+            if (!aluno) {
+                return res.status(404).json({ msg: 'Aluno não encontrado!' });
+            }
+
+            res.status(200).json({
+                matricula: aluno.matricula,
+                nome: aluno.nome,
+                turma: aluno.turma
+            });
         } catch (error) {
             res.status(500).json({ msg: 'Erro interno do servidor, tente novamente mais tarde!' });
         }
@@ -64,4 +87,4 @@ class SecretarioModelController {
     }
 
 }
-module.exports = SecretarioModelController
+module.exports = alunoController
