@@ -53,7 +53,33 @@ class alunoController {
             res.status(500).json({ msg: 'Erro interno do servidor, tente novamente mais tarde!' });
         }
     }
+    static async editarAluno(req, res) {
+        try {
+            const { matricula } = req.params;
+            const { nome, email, senha, turma } = req.body;
 
+            const aluno = await AlunoModel.findByPk(matricula);
+
+            if (!aluno) {
+                return res.status(404).json({ msg: 'Aluno não encontrado!' });
+            }
+
+            if (!nome && !email && !senha && !turma) {
+                return res.status(400).json({ msg: 'Pelo menos um campo deve ser atualizado!' });
+            }
+
+            await AlunoModel.update(
+                { nome, email, senha, turma },
+                { where: { matricula } }
+            );
+
+            const alunoAtualizado = await AlunoModel.findByPk(matricula);
+
+            res.status(200).json(alunoAtualizado);
+        } catch (error) {
+            res.status(500).json({ msg: 'Erro interno do servidor, tente novamente mais tarde!' });
+        }
+    }
     static async deletarAluno(req, res) {
         try {
             const { matricula } = req.params;
